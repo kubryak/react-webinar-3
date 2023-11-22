@@ -46,7 +46,7 @@ class Store {
   generateUniqueCode = () => {
     const initialCodesArr = this.state.list.map(item => item.code); // Начальный массив кодов
 
-    const allCodesArr = Array.from({ length: 10 }, (_, i) => i + 1); // Массив всех возможных кодов
+    const allCodesArr = Array.from({ length: 100 }, (_, i) => i + 1); // Массив всех возможных кодов
 
     const availableCodesArr = allCodesArr.filter(code => !initialCodesArr.includes(code)); // Массив уникальных незанятых значений
 
@@ -55,7 +55,7 @@ class Store {
       return null;
     }
     const uniqueCode = availableCodesArr[Math.floor(Math.random() * availableCodesArr.length)];
-
+  
     return uniqueCode;
   }
 
