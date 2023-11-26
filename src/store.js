@@ -5,7 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-
+    this.listLength = this.state.list.length + 1;
   }
 
   /**
@@ -40,37 +40,13 @@ class Store {
   }
 
   /**
-   * Генерация уникального кода записи
-   */
-
-  generateUniqueCode = () => {
-    const initialCodesArr = this.state.list.map(item => item.code); // Начальный массив кодов
-
-    const allCodesArr = Array.from({ length: 100 }, (_, i) => i + 1); // Массив всех возможных кодов
-
-    const availableCodesArr = allCodesArr.filter(code => !initialCodesArr.includes(code)); // Массив уникальных незанятых значений
-
-    if (availableCodesArr.length === 0) {
-      console.error('Исчерпаны все возможные коды')
-      return null;
-    }
-    const uniqueCode = availableCodesArr[Math.floor(Math.random() * availableCodesArr.length)];
-  
-    return uniqueCode;
-  }
-
-  /**
    * Добавление новой записи
    */
   addItem() {
-    const uniqueCode = this.generateUniqueCode();
-
-    if (uniqueCode !== null) {
-      this.setState({
+       this.setState({
         ...this.state,
-        list: [...this.state.list, { code: uniqueCode, title: 'Новая запись' }]
+        list: [...this.state.list, { code: this.listLength++, title: 'Новая запись' }]
       })
-    }
   };
 
   /**
@@ -102,6 +78,18 @@ class Store {
       })
     })
   }
+
+   /**
+   * Выделение записи по коду
+   * @param code
+   */
+ getSelectionCount(count) {
+  if (count >= 2 && count <= 4) {
+    return 'раза'
+  } else {
+    return 'раз'
+  }
+ }
 }
 
 export default Store;
