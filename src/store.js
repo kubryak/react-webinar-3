@@ -6,6 +6,7 @@ import {generateCode} from "./utils";
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.state.cart = [];
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -41,13 +42,26 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление элемента в корзину
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+  addItem(newItem) {
+    const existingItem = this.state.cart.find(item => item.code === newItem.code);
+
+    if (existingItem) {
+      const updateCart = this.state.cart.map(item =>
+        item.code === newItem.code ? {...item, count: item.count + 1} : item);
+
+      this.setState({
+        ...this.state,
+        cart: updateCart,
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, {...newItem, count: 1}],
+      });
+    }
+    console.log(this.state.cart)
   };
 
   /**
@@ -58,7 +72,7 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code)
     })
   };
 

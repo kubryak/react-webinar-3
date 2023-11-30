@@ -18,8 +18,24 @@
   padding: 20px 10px;
 }
 
+.Item-info {
+  display: flex;
+  color: #404040;
+  font-weight: 400;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.Item-info-price {
+  padding: 20px 0;
+}
+
+.Item-info-count {
+  padding: 20px 0 20px 60px;
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
+  padding: 20px 20px 20px 24px;
 }
