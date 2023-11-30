@@ -61,7 +61,6 @@ class Store {
         cart: [...this.state.cart, {...newItem, count: 1}],
       });
     }
-    console.log(this.state.cart)
   };
 
   /**

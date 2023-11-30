@@ -3,21 +3,6 @@ import PropTypes from "prop-types";
 import './style.css';
 
 function Item(props) {
-
-  const callbacks = {
-    // onClick: () => {
-    //   props.onSelect(props.item.code);
-    //   if (!props.item.selected) {
-    //     setCount(count + 1);
-    //   }
-    // },
-    // onAdd: (e) => {
-    //   e.stopPropagation();
-    //   props.onAdd(props.item.code);
-
-    // }
-  }
-  console.log(props.item.count)
   return (
     <div className='Item'>
       <div className='Item-code'>{props.item.code}</div>
@@ -43,12 +28,18 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
+    count: PropTypes.number,
+    price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
+  onDelete: PropTypes.func,
+  isOpened: PropTypes.bool,
 };
 
 Item.defaultProps = {
   onAdd: () => {
+  },
+  onDelete: () => {
   },
 }
 

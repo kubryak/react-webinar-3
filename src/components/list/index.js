@@ -19,10 +19,14 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
+  onAddItem: PropTypes.func,
   onDeleteItem: PropTypes.func,
+  isOpened: PropTypes.bool,
 };
 
 List.defaultProps = {
+  onAddItem: () => {
+  },
   onDeleteItem: () => {
   },
 }

@@ -30,12 +30,16 @@
   margin-right: 0;
 }
 
+.Popup-content-list {
+  margin-top: 70px;
+}
+
 .Popup-content-text-empty {
   margin-top: 20px;
   text-align: center;
   font-weight: 600;
   font-size: 18;
-  margin-bottom: 90px;
+  margin-bottom: 70px;
 }
 
 .Popup-content-info {
