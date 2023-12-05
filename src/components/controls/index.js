@@ -4,12 +4,12 @@ import './style.css';
 import { plural } from "../../utils";
 
 
-function Controls({ setIsOpened, totalAmount, cartList }) {
+function Controls({ setIsOpened, amount, count }) {
   return (
     <div className='Controls'>
       <div className="Controls-info">В корзине:
         <span className="Controls-span">
-          {cartList.length === 0 ? 'пусто' : ` ${cartList.length} ${plural(cartList.length, { one: 'товар', few: 'товара', many: 'товаров' })} / ${totalAmount} ₽`}
+          {count === 0 ? 'пусто' : ` ${count} ${plural(count, { one: 'товар', few: 'товара', many: 'товаров' })} / ${amount.toLocaleString('ru-RU')} ₽`}
         </span>
       </div>
       <button className="Controls-button" onClick={() => setIsOpened(true)}>Перейти</button>
@@ -19,8 +19,8 @@ function Controls({ setIsOpened, totalAmount, cartList }) {
 
 Controls.propTypes = {
   setIsOpened: PropTypes.func,
-  totalAmount: PropTypes.number,
-  cartList: PropTypes.array,
+  amount: PropTypes.number,
+  count: PropTypes.number,
 };
 
 Controls.defaultProps = {

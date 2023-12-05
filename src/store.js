@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -8,6 +8,8 @@ class Store {
     this.state = initState;
     this.state.cart = [];
     this.listeners = []; // Слушатели изменений состояния
+    this.count = 0;
+    this.amount = 0;
   }
 
   /**
@@ -41,6 +43,20 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+  getCartOptions() {
+    return { count: this.count, amount: this.amount }
+  }
+
+  setCartCount() {
+    return this.state.cart.length
+  }
+
+  setCartAmount() {
+    return this.state.cart.reduce((accumulator, currentItem) => {
+      return accumulator + currentItem.price * currentItem.count;
+    }, 0)
+  }
+
   /**
    * Добавление элемента в корзину
    */
@@ -49,7 +65,7 @@ class Store {
 
     if (existingItem) {
       const updateCart = this.state.cart.map(item =>
-        item.code === newItem.code ? {...item, count: item.count + 1} : item);
+        item.code === newItem.code ? { ...item, count: item.count + 1 } : item);
 
       this.setState({
         ...this.state,
@@ -58,9 +74,11 @@ class Store {
     } else {
       this.setState({
         ...this.state,
-        cart: [...this.state.cart, {...newItem, count: 1}],
+        cart: [...this.state.cart, { ...newItem, count: 1 }],
       });
     }
+    this.count = this.setCartCount();
+    this.amount = this.setCartAmount();
   };
 
   /**
@@ -73,6 +91,8 @@ class Store {
       // Новый список, в котором не будет удаляемой записи
       cart: this.state.cart.filter(item => item.code !== code)
     })
+    this.count = this.setCartCount();
+    this.amount = this.setCartAmount();
   };
 
   /**
@@ -92,7 +112,7 @@ class Store {
           };
         }
         // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
+        return item.selected ? { ...item, selected: false } : item;
       })
     })
   }

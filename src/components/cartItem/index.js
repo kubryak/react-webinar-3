@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
 
-function Item(props) {
+function CartItem(props) {
   return (
     <div className='Item'>
       <div className='Item-code'>{props.item.code}</div>
@@ -11,29 +11,30 @@ function Item(props) {
       </div>
       <div className="Item-info">
         <div className="Item-info-price">{props.item.price.toLocaleString('ru-RU')} ₽</div>
+        <div className="Item-info-count">{props.item.count} шт</div>
       </div>
       <div className='Item-actions'>
-        <button onClick={() => props.onAdd(props.item)}>
-          Добавить
+        <button onClick={() => props.onDelete(props.item.code)}>
+          Удалить
         </button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     count: PropTypes.number,
     price: PropTypes.number,
   }).isRequired,
-  onAdd: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
-Item.defaultProps = {
-  onAdd: () => {
+CartItem.defaultProps = {
+  onDelete: () => {
   },
 }
 
-export default React.memo(Item);
+export default React.memo(CartItem);

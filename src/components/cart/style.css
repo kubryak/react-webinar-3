@@ -1,0 +1,25 @@
+.Cart-content-list {
+  margin-top: 70px;
+}
+
+.Cart-content-text-empty {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 18;
+  margin-bottom: 70px;
+}
+
+.Cart-content-info {
+  display: flex;
+  font-size: 18px;
+  font-weight: 600;
+  justify-content: flex-end;
+  padding-right: 110px;
+  margin-top: 20px;
+  margin-bottom: 90px;
+}
+
+.Cart-content-info-amount {
+  padding-left: 54px;
+}

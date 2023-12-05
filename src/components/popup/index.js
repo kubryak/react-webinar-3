@@ -2,9 +2,8 @@ import React from "react";
 import Head from "../head";
 import PropTypes from 'prop-types';
 import './style.css';
-import List from "../list";
 
-function Popup({ isOpened, setIsOpened, onDeleteItem, cartList, totalAmount }) {
+function Popup({ isOpened, setIsOpened, title, children }) {
 
   const handleClosePopup = () => {
     setIsOpened(false);
@@ -13,22 +12,10 @@ function Popup({ isOpened, setIsOpened, onDeleteItem, cartList, totalAmount }) {
   return (
     <div className={`Popup ${isOpened ? 'Popup_active' : ''} `}>
       <div className="Popup-content">
-        <Head title='Корзина'>
+        <Head title={title}>
           <button className="Popup-content-button" onClick={() => handleClosePopup()}>Закрыть</button>
         </Head>
-        <div className="Popup-content-list">
-          {cartList.length === 0 ? (
-            <p className="Popup-content-text-empty">В корзине сейчас пусто</p>
-          ) : (
-            <>
-              <List onDeleteItem={onDeleteItem} list={cartList} isOpened={isOpened} />
-              <div className="Popup-content-info">
-                <div className="Popup-content-info-text">Итого</div>
-                <div className="Popup-content-info-amount">{totalAmount} ₽</div>
-              </div>
-            </>
-          )}
-        </div>
+        {children}
       </div>
     </div>
   )
@@ -37,15 +24,12 @@ function Popup({ isOpened, setIsOpened, onDeleteItem, cartList, totalAmount }) {
 Popup.propTypes = {
   isOpened: PropTypes.bool,
   setIsOpened: PropTypes.func,
-  onDeleteItem: PropTypes.func,
-  cartList: PropTypes.array,
-  totalAmount: PropTypes.number,
+  title: PropTypes.string,
+  children: PropTypes.node,
 };
 
 Popup.defaultProps = {
   setIsOpened: () => {
-  },
-  onDeleteItem: () => {
   },
 }
 

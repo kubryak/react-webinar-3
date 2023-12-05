@@ -25,6 +25,10 @@
   padding: 20px 0;
 }
 
+.Item-info-count {
+  padding: 20px 0 20px 60px;
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;

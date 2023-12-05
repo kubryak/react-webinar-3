@@ -3,7 +3,7 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-import Popup from './components/popup';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -14,6 +14,8 @@ function App({ store }) {
 
   const list = store.getState().list;
   const cartList = store.getState().cart;
+  const count = store.getCartOptions().count;
+  const amount = store.getCartOptions().amount;
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
@@ -27,26 +29,24 @@ function App({ store }) {
 
   const [isOpened, setIsOpened] = useState(false);
 
-  const totalAmount = cartList.reduce((accumulator, currentItem) => {
-    return accumulator + currentItem.price * currentItem.count;
-  }, 0)
-
   return (
     <PageLayout>
       <Head title='Магазин' />
       <Controls onAdd={callbacks.onAddItem}
-      setIsOpened={setIsOpened}
-      totalAmount={totalAmount}
-      cartList={cartList}
+        setIsOpened={setIsOpened}
+        amount={amount}
+        count={count}
       />
       <List list={list}
         onAddItem={callbacks.onAddItem}
       />
-      <Popup isOpened={isOpened}
+      <Cart isOpened={isOpened}
         setIsOpened={setIsOpened}
         onDeleteItem={callbacks.onDeleteItem}
         cartList={cartList}
-        totalAmount={totalAmount}
+        count={count}
+        amount={amount}
+        title={'Корзина'}
       />
     </PageLayout>
   );
